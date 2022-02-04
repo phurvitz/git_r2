@@ -6,11 +6,6 @@ header-includes: #allows you to add in your own Latex packages
 - \usepackage{float} #use the 'float' package
 - \floatplacement{figure}{H} #make every figure with caption = h
 output: 
-    pdf_document:
-        number_sections: true
-        toc: true
-        fig_cap: yes
-        keep_tex: yes
     html_document:
         number_sections: true
         self_contained: true
@@ -19,6 +14,11 @@ output:
         toc_float:
             collapsed: true
             smooth_scroll: false
+    pdf_document:
+        number_sections: true
+        toc: true
+        fig_cap: yes
+        keep_tex: yes
 urlcolor: blue        
 ---
 
@@ -138,6 +138,32 @@ An image is shown below (`r figure_nums(name = "csdelogo", display = "cite")`).
 </div>
 \      
 _`r figure_nums(name = "csdelogo", caption = "CSDE Logo")`_
+
+
+```{r}
+library(htmltools) # popup on Leaflet map
+# the Space Needle
+snxy <- data.frame(name = "Space Needle", x = -122.3493, y = 47.6205)
+space_needle <- st_as_sf(snxy, coords = c("x", "y"), crs = 4326)
+
+# Savery Hall
+shxy <- data.frame(name = "Savery Hall", x = -122.3083, y = 47.6572)
+savery_hall <- st_as_sf(shxy, coords = c("x", "y"), crs = 4326)
+
+# the Woodland Park Zoo
+zooxy <- data.frame(name = "Woodland Park Zoo", x = -122.3543, y = 47.6685)
+wp_zoo <- st_as_sf(zooxy, coords = c("x", "y"), crs = 4326)
+
+# rbind() to put two points in one data frame
+pts <- rbind(space_needle, savery_hall, wp_zoo)
+
+# a leaflet
+m <- leaflet() %>% 
+    addTiles() %>% 
+    addCircleMarkers(data = pts, label = ~htmlEscape(name))
+m
+```
+
 
 # Discussion
 
