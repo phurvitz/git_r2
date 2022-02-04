@@ -112,24 +112,6 @@ irishead <- head(iris)
 kable(irishead, format = "html") %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F, position = "left")
 ``` 
 
-## A leaflet map
-
-See _`r figure_nums(name = "spaceneedle", display = "cite")`_ 
-
-```{r}
-# the Space Needle
-snxy <- data.frame(name = "Space Needle", x = -122.3493, y = 47.6205)
-space_needle <- st_as_sf(snxy, coords = c("x", "y"), crs = 4326)
-
-# a leaflet
-m <- leaflet() %>% 
-    addTiles() %>% 
-    addCircleMarkers(data = space_needle)
-m
-```
-\    
-_`r figure_nums(name = "spaceneedle", caption = "A simple leaflet map with the Space Needle as a markerpoint")`_
-
 ## A figure with black outlines
 An image is shown below (`r figure_nums(name = "csdelogo", display = "cite")`).
 
